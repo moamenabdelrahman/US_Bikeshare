@@ -9,6 +9,7 @@ CITY_DATA = { 'chicago': 'chicago.csv',
 
 months = ['january', 'february', 'march', 'april', 'may', 'june']
 days = ['Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
+
 #stores the city inserted by user to use later in checking condition
 City = ''
 
@@ -21,8 +22,8 @@ def get_filters():
         (str) month - name of the month to filter by, or "all" to apply no month filter
         (str) day - name of the day of week to filter by, or "all" to apply no day filter
     """
-    print('Hello! Let\'s explore some US bikeshare data!')
-    # get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
+    print("Hello! Let's explore some US bikeshare data!")
+    # get user input for city (chicago, new york city, washington).
     city = ''
     while city not in CITY_DATA:
         city = input("Choose the city to analyze among (chicago, new york city or washington): ").strip().lower()
@@ -58,7 +59,7 @@ def load_data(city, month, day):
     """
     #load city.csv file
     df = pd.read_csv(CITY_DATA[city])
-    #converting time coumns into datetime type
+    #converting time columns into datetime type
     df['Start Time'] = pd.to_datetime(df['Start Time'], errors = 'coerce')
     df['End Time'] = pd.to_datetime(df['End Time'], errors = 'coerce')
     #extract month and day from 'Start Time' to new columns
@@ -185,7 +186,7 @@ def main():
         """
         Raw data is displayed upon request by the user in the following manner:
 
-        1.Your script should prompt the user if they want to see 5 lines of raw data,
+        1.Script prompts the user if they want to see 5 lines of raw data,
         2.Display that data if the answer is 'yes',
         3.Continue iterating these prompts and displaying the next 5 lines of raw data at each iteration,
         4.Stop the program when the user says 'no' or there is no more raw data to display.
@@ -195,10 +196,11 @@ def main():
 
         while raw_data != 'no':
             raw_data = input('\nWould you like to see 5 lines of raw data? Enter yes or no.\n').strip().lower()
-            print(df[:][x:y])
-            x += 5
-            y += 5
-            if y > len(df):
+            if raw_data != 'no':
+                print(df[:][x:y])
+                x += 5
+                y += 5
+            if y >= len(df):
                 break
 
         time_stats(df)
@@ -207,7 +209,7 @@ def main():
         user_stats(df)
 
         restart = input('\nWould you like to restart? Enter yes or no.\n')
-        if restart.strip().lower() != 'yes':
+        if restart.strip().lower() == 'no':
             break
 
 if __name__ == "__main__":
